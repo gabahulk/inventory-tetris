@@ -10,7 +10,7 @@ public class InventoryGrid : MonoBehaviour
     public float slotSize;
     public float slotSpacing = 0.0f;
 
-    public ArrayLayout shape;
+    public Shape shape;
 
     private void Start()
     {
