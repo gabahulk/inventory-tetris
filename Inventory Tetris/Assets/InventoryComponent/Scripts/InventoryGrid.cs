@@ -20,7 +20,7 @@ public class InventoryGrid : MonoBehaviour
 
     private void CreateSlot(int x, int y)
     {
-        if (shape.rows[x].row[y])
+        if (shape.rows[x*shape.rows.Count + y])
         {
             GameObject slotInstance = Instantiate(slotPrefab);
             slotInstance.transform.SetParent(transform);

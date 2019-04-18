@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: ItemData
   m_EditorClassIdentifier: 
   shape:
-    rows:
-    - row: 000000
-    - row: 000000
-    - row: 000000
+    rows: 
