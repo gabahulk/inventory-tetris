@@ -6,36 +6,44 @@ using UnityEngine;
 public class InventoryGrid : MonoBehaviour
 {
     public GameObject slotPrefab;
-    public int size = 3;
-    public float slotSize;
     public float slotSpacing = 0.0f;
 
-    public Shape shape;
+    private float slotSize;
+
+    public Shape gridShape;
 
     private void Start()
     {
-        slotSize = slotPrefab.GetComponent<Image>().sprite.rect.height;
-        InstanciateShape();
+        slotSize = slotPrefab.GetComponent<RectTransform>().rect.width;
+        InstanciateShape(gridShape);
     }
 
-    private void CreateSlot(int x, int y)
+    private int GetSlotIndexByBidimensionalCoordinates(Shape shape, int x, int y)
     {
-        if (shape.rows[x*shape.rows.Count + y])
+        return shape.Width * y + x;
+    }
+
+    private void CreateSlot(Shape shape, int x, int y)
+    {
+        var inventoryWidth = slotSize * shape.Width;
+        var inventoryHeight = slotSize * shape.Height;
+        int index = GetSlotIndexByBidimensionalCoordinates(shape, x, y);
+        if (shape.Slots[index])
         {
             GameObject slotInstance = Instantiate(slotPrefab);
             slotInstance.transform.SetParent(transform);
-            Vector3 slotPosition = new Vector3(x * slotSize/2, y * slotSize / 2);
-            slotInstance.transform.position = this.transform.position + slotPosition;
+            Vector3 slotPosition = new Vector3(x * slotSize - inventoryWidth/2, y * slotSize - inventoryHeight/2);
+            slotInstance.transform.localPosition = slotPosition;
         }
     }
 
-    private void InstanciateShape()
+    private void InstanciateShape(Shape shape)
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < shape.Width; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < shape.Height; j++)
             {
-                CreateSlot(i,j);
+                CreateSlot(shape, i,j);
             }
         }
     }
@@ -44,7 +52,6 @@ public class InventoryGrid : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.A))
         {
-            size++;
         }
     }
 }
