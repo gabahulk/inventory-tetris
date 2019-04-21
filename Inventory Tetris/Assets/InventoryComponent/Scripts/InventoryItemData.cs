@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemData", menuName = "Inventory/Item", order = 1)]
